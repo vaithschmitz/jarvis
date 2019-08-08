@@ -1,7 +1,18 @@
 var mqtt = require('mqtt');
-
 var hostname = "mqtt://raspberrypi.local";
 var client  = mqtt.connect(hostname);
+var app = require('express')();
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
+
+http.listen(3000, function(){
+    console.log('listening on *:3000');
+});
+
+app.get('/', function(req, res){
+    res.sendFile(__dirname + '/index.html');
+  });
+
 
 client.on('connect', function () {
     console.log("[Snips Log] Connected to MQTT broker " + hostname);
@@ -21,7 +32,7 @@ client.on('message', function (topic, message) {
 });
 
 function onIntentDetected(intent) {
-    console.log("[Snips Log] Intent detected: " + JSON.stringify(intent));
+    // console.log("[Snips Log] Intent detected: " + JSON.stringify(intent));
     getAction(intent)
 }
 
@@ -33,4 +44,19 @@ function onListeningStateChanged(listening) {
     console.log("[Snips Log] " + (listening ? "Start" : "Stop") + " listening");
 }
 
-const getAction = intent => console.log(intent.slots[0].slotName)
+io.on('connection', function(socket) {
+    console.log('A user connected');
+  });
+
+const getAction = intent => {
+    let action = intent.slots[0].slotName
+    io.emit('action', action)
+}
+
+
+
+
+
+
+
+
