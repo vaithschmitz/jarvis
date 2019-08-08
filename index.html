@@ -4,22 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
     <title>Document</title>
 </head>
 
 <body>
     
 
-    <div id='el'>Hello</div>
+
+    <video id='mainVideo' width="100vw" height="100vh" autoplay>
+            <source  type="video/mp4">
+    </video>
+
 
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
         const $ = (x) => document.getElementById(x)
+        let currentAction  
         var socket = io();
         socket.on('action', (action) => {
-            $('el').textContent = action
+            currentAction = action
+            // $('mainVideo').src = `http://localhost:3000/${currentAction}`
+            $('mainVideo').setAttribute("src", `http://localhost:3000/${currentAction}`)
+            $('mainVideo').load();
+            $('mainVideo').play();
         });
+
 
     </script>
 </body>
