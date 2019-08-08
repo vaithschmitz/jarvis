@@ -58,9 +58,6 @@ const getAction = intent => {
 }
 
 
-
-
-
 app.get('/tour', function(req, res) {
     const path = './videos/tour.mp4'
     const stat = fs.statSync(path)
