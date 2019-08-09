@@ -6,6 +6,17 @@ var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var fs = require('fs')
+var LifxClient = require('node-lifx').Client;
+var clientLight = new LifxClient();
+
+
+
+let lightStrip 
+clientLight.on('light-new', function(light){
+  lightStrip = light
+})
+
+clientLight.init()
 
 http.listen(3000, function(){
     console.log('listening on *:3000');
@@ -42,20 +53,53 @@ function onIntentDetected(intent) {
 
 function onHotwordDetected() {
     console.log("[Snips Log] Hotword detected");
+    lightStrip.colorRgb(255, 255, 255, 100)
+    lightStrip.on()
+    const lightStripOff = () => lightStrip.off()
+    setTimeout(lightStripOff, 1500)
+    
 }
 
 function onListeningStateChanged(listening) {
+    
     console.log("[Snips Log] " + (listening ? "Start" : "Stop") + " listening");
+
+
 }
 
 io.on('connection', function(socket) {
     console.log('A user connected');
-  });
+    console.log(clientLight.lights())
+});
+
 
 const getAction = intent => {
-    let action = intent.slots[0].slotName
-    io.emit('action', action)
+  let action = intent.slots[0].slotName
+  io.emit('action', action)
+
+    if(action == 'kim'){
+      lightStrip.colorRgb(253, 131, 112, 100)
+      lightStrip.on()
+    }
+    else if(action == 'al'){
+      lightStrip.colorRgb(255, 165, 0, 100)
+      lightStrip.on()
+    }
+    else if(action == 'captain'){
+      lightStrip.colorRgb(0, 100, 255, 100)
+      lightStrip.on()
+
+    }    
+    
 }
+
+
+
+
+
+
+
+
 
 
 app.get('/tour', function(req, res) {

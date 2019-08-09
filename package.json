@@ -11,6 +11,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "mqtt": "^3.0.0",
+    "node-lifx": "^0.8.0",
+    "node-lifx-lan": "^0.3.1",
     "socket.io": "^2.2.0"
   }
 }
