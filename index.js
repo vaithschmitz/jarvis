@@ -6,10 +6,9 @@ var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var fs = require('fs')
+var say = require('say')
 var LifxClient = require('node-lifx').Client;
 var clientLight = new LifxClient();
-
-
 
 let lightStrip 
 clientLight.on('light-new', function(light){
@@ -74,22 +73,29 @@ io.on('connection', function(socket) {
 
 
 const getAction = intent => {
+  console.log(intent)
   let action = intent.slots[0].slotName
   io.emit('action', action)
 
     if(action == 'kim'){
+      say.speak('Hi Kim')
       lightStrip.colorRgb(253, 131, 112, 100)
       lightStrip.on()
     }
     else if(action == 'al'){
+      say.speak('Hi Al')
       lightStrip.colorRgb(255, 165, 0, 100)
       lightStrip.on()
     }
     else if(action == 'captain'){
+      say.speak('Hi Captain')
       lightStrip.colorRgb(0, 100, 255, 100)
       lightStrip.on()
-
     }    
+    else if(action == 'off'){
+      say.speak('Goodbye')
+      lightStrip.off()
+    }  
     
 }
 
