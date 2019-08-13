@@ -6,7 +6,7 @@ const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const fs = require('fs')
-const say = require('say')
+// const say = require('say')
 const LifxClient = require('node-lifx').Client;
 const clientLight = new LifxClient();
 
@@ -78,22 +78,22 @@ const getAction = intent => {
     io.emit('action', action)
 
       if(action == 'kim'){
-        say.speak('Hi Kim')
+        // say.speak('Hi Kim')
         lightStrip.colorRgb(253, 131, 112, 100)
         lightStrip.on()
       }
       else if(action == 'al'){
-        say.speak('Hi Al')
+        // say.speak('Hi Al')
         lightStrip.colorRgb(255, 165, 0, 100)
         lightStrip.on()
       }
       else if(action == 'captain'){
-        say.speak('Hi Captain')
+        // say.speak('Hi Captain')
         lightStrip.colorRgb(0, 100, 255, 100)
         lightStrip.on()
       }    
       else if(action == 'off'){
-        say.speak('Goodbye')
+        // say.speak('Goodbye')
         lightStrip.off()
       }     
   }
