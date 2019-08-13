@@ -75,7 +75,7 @@ const getAction = intent => {
   console.log(intent)
   // only take action if action of intent can be read to avoid shutting down script
   if(intent.slots[0].slotName != undefined){
-    let action = 
+    let action  
     io.emit('action', action)
 
       if(action == 'kim'){
