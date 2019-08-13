@@ -73,28 +73,31 @@ io.on('connection', function(socket) {
 // take intent and send to frontend for media, process lights and audio feedback on server
 const getAction = intent => {
   console.log(intent)
-  let action = intent.slots[0].slotName
-  io.emit('action', action)
+  // only take action if action of intent can be read to avoid shutting down script
+  if(intent.slots[0].slotName != undefined){
+    let action = 
+    io.emit('action', action)
 
-    if(action == 'kim'){
-      say.speak('Hi Kim')
-      lightStrip.colorRgb(253, 131, 112, 100)
-      lightStrip.on()
-    }
-    else if(action == 'al'){
-      say.speak('Hi Al')
-      lightStrip.colorRgb(255, 165, 0, 100)
-      lightStrip.on()
-    }
-    else if(action == 'captain'){
-      say.speak('Hi Captain')
-      lightStrip.colorRgb(0, 100, 255, 100)
-      lightStrip.on()
-    }    
-    else if(action == 'off'){
-      say.speak('Goodbye')
-      lightStrip.off()
-    }     
+      if(action == 'kim'){
+        say.speak('Hi Kim')
+        lightStrip.colorRgb(253, 131, 112, 100)
+        lightStrip.on()
+      }
+      else if(action == 'al'){
+        say.speak('Hi Al')
+        lightStrip.colorRgb(255, 165, 0, 100)
+        lightStrip.on()
+      }
+      else if(action == 'captain'){
+        say.speak('Hi Captain')
+        lightStrip.colorRgb(0, 100, 255, 100)
+        lightStrip.on()
+      }    
+      else if(action == 'off'){
+        say.speak('Goodbye')
+        lightStrip.off()
+      }     
+  }
 }
 
 // add all mp4s an loop over them to create routes
