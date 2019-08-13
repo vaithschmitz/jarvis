@@ -72,10 +72,9 @@ io.on('connection', function(socket) {
 
 // take intent and send to frontend for media, process lights and audio feedback on server
 const getAction = intent => {
-  console.log(intent)
   // only take action if action of intent can be read to avoid shutting down script
   if(intent.slots[0].slotName != undefined){
-    let action  
+    let action = intent.slots[0].slotName
     io.emit('action', action)
 
       if(action == 'kim'){
