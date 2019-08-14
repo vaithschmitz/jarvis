@@ -6,49 +6,73 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <link rel="stylesheet" type="text/css" href="css/futurenow.css" />
+    <link rel="stylesheet" type="text/css" href="css/slideshow.css" />
     <title>Workshop</title>
 </head>
 
-<body>
-
+<body>   
     <div id='cal-container'>
-            <div id='cal-jan'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
-            <div id='cal-feb'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
-            <div id='cal-mar'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
-            <div id='cal-apr'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
-            <div id='cal-may'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
-            <div id='cal-jun'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
-            <div id='cal-jul'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
-            <div id='cal-aug'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
-            <div id='cal-sep'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
-            <div id='cal-oct'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
-            <div id='cal-nov'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
-            <div id='cal-dec'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
-        </div>
+        <div id='cal-jan'></div> 
+        <div id='cal-feb'></div> 
+        <div id='cal-mar'></div> 
+        <div id='cal-apr'></div> 
+        <div id='cal-may'><img class='cal-qr' src='qr-codes/fn-qr-may.png'></div> 
+        <div id='cal-jun'><img class='cal-qr' src='qr-codes/fn-qr-jun.png'></div> 
+        <div id='cal-jul'></div> 
+        <div id='cal-aug'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
+        <div id='cal-sep'></div> 
+        <div id='cal-oct'></div> 
+        <div id='cal-nov'></div> 
+        <div id='cal-dec'></div> 
+    </div>
 
+    <div id="slideshow-container">  
+      <div id='images' class="pup1" onclick='swapImage()'></div>
+    </div>
+
+    
     <video id='mainVideo' width="100" height="100">
-            <source  type="video/mp4">
+        <source type="video/mp4">
     </video>
-
-    <script src="/socket.io/socket.io.js"></script>
 
     <script>
         const $ = (x) => document.getElementById(x)
+        let mode = 0
+        function swapImage(){
+            let classes = ['pup1', 'pup2', 'pup3']
+            
+            $('images').classList = classes[mod]
+            return mod == classes.length -1 ? mod = 0 : mod++     
+        }
+    </script>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+ 
+    <script>
+        // const $ = (x) => document.getElementById(x)
         let currentAction  
-        
+   
         var socket = io();
         socket.on('action', (action) => {
             currentAction = action
             if(currentAction == 'future'){
-                $('cal-container').style.visibility = 'visible'
+                $('cal-container').style.display = 'grid'
+                $('mainVideo').style.display = 'none'
+                $('slideshow-container').style.display = 'none'
+            }
+            else if(currentAction == 'slideshow'){
+                $('cal-container').style.display = 'none'
+                $('mainVideo').style.display = 'none'
+                $('slideshow-container').style.display = 'grid'
             }
             else{
-                $('cal-container').style.visibility = 'hidden'
+                $('cal-container').style.display = 'none'
+                $('slideshow-container').style.display = 'none'
                 $('mainVideo').setAttribute("src", `http://localhost:3000/${currentAction}`)
                 $('mainVideo').load();
                 $('mainVideo').play();
             }
-
         });
     </script>
 </body>

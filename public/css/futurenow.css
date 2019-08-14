@@ -3,11 +3,12 @@ body{
     margin: none;
     height: 100vh;
     width: 100vw;
+    position: relative;
+    z-index: 1
 }
 
 #cal-container{
-    visibility: hidden;
-    display: grid;
+    display: none;
     grid-template-areas: 'a b c d' 'e f g h' 'i j k l';
     align-content: center;
     justify-content: center;
@@ -17,7 +18,8 @@ body{
     width: 25vw;
     height: 33vh;
     display: flex;
-    justify-content: center
+    justify-content: center;
+    border: dashed white 1px;
 }
 
 .cal-qr{
