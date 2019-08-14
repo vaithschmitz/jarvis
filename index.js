@@ -6,7 +6,7 @@ const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const fs = require('fs')
-// const say = require('say')
+
 const LifxClient = require('node-lifx').Client;
 const clientLight = new LifxClient();
 
@@ -26,6 +26,10 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
   });
 app.use(express.static(__dirname + '/public'));
+
+app.get('/futurenow', function(req, res){
+  res.sendFile(__dirname + '/futurenow.html');
+});
 
 // connect to snips
 client.on('connect', function () {
