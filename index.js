@@ -27,10 +27,6 @@ app.get('/', function(req, res){
   });
 app.use(express.static(__dirname + '/public'));
 
-app.get('/futurenow', function(req, res){
-  res.sendFile(__dirname + '/futurenow.html');
-});
-
 // connect to snips
 client.on('connect', function () {
     console.log("[Snips Log] Connected to MQTT broker " + hostname);

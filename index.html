@@ -5,11 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/futurenow.css" />
     <title>Workshop</title>
 </head>
 
 <body>
-    
+
+    <div id='cal-container'>
+            <div id='cal-jan'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
+            <div id='cal-feb'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
+            <div id='cal-mar'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
+            <div id='cal-apr'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
+            <div id='cal-may'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
+            <div id='cal-jun'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
+            <div id='cal-jul'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
+            <div id='cal-aug'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
+            <div id='cal-sep'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
+            <div id='cal-oct'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
+            <div id='cal-nov'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
+            <div id='cal-dec'><img class='cal-qr' src='qr-codes/fn-qr-aug.png'></div> 
+        </div>
+
     <video id='mainVideo' width="100" height="100">
             <source  type="video/mp4">
     </video>
@@ -23,9 +39,16 @@
         var socket = io();
         socket.on('action', (action) => {
             currentAction = action
-            $('mainVideo').setAttribute("src", `http://localhost:3000/${currentAction}`)
-            $('mainVideo').load();
-            $('mainVideo').play();
+            if(currentAction == 'future'){
+                $('cal-container').style.visibility = 'visible'
+            }
+            else{
+                $('cal-container').style.visibility = 'hidden'
+                $('mainVideo').setAttribute("src", `http://localhost:3000/${currentAction}`)
+                $('mainVideo').load();
+                $('mainVideo').play();
+            }
+
         });
     </script>
 </body>

@@ -6,11 +6,11 @@ body{
 }
 
 #cal-container{
-
+    visibility: hidden;
     display: grid;
     grid-template-areas: 'a b c d' 'e f g h' 'i j k l';
     align-content: center;
-    justify-content: center
+    justify-content: center;
 }
 
 #cal-container > *{
@@ -23,7 +23,6 @@ body{
 .cal-qr{
     object-fit: contain;
 }
-
 
 .cal-date-text{
     font-size: 2vw;
