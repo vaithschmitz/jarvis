@@ -19,7 +19,6 @@ body{
     height: 33vh;
     display: flex;
     justify-content: center;
-    border: dashed white 1px;
 }
 
 .cal-qr{

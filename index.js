@@ -75,25 +75,22 @@ const getAction = intent => {
   // only take action if action of intent can be read to avoid shutting down script
   if(intent.slots[0].slotName != undefined){
     let action = intent.slots[0].slotName
+    console.log(action)
     io.emit('action', action)
 
       if(action == 'kim'){
-        // say.speak('Hi Kim')
         lightStrip.colorRgb(253, 131, 112, 100)
         lightStrip.on()
       }
       else if(action == 'al'){
-        // say.speak('Hi Al')
         lightStrip.colorRgb(255, 165, 0, 100)
         lightStrip.on()
       }
       else if(action == 'captain'){
-        // say.speak('Hi Captain')
         lightStrip.colorRgb(0, 100, 255, 100)
         lightStrip.on()
       }    
       else if(action == 'off'){
-        // say.speak('Goodbye')
         lightStrip.off()
       }     
   }
