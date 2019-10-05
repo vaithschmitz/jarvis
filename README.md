@@ -10,12 +10,3 @@ Express.js -> serve content
 socket.io -> websocket to enable server to emit events to frontend / keep alive
 
 
-
-
-```
-To Do:
-
-lifx 
-conversational ai
-spotify
-user profiles
